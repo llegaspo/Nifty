@@ -1,7 +1,11 @@
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initCompactStack();
+    });
+} else {
     initCompactStack();
-});
+}
 
 function initCompactStack() {
     const stackContainer = document.getElementById('card-stack');

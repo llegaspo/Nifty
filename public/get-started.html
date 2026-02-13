@@ -1,43 +1,39 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import BodyClass from "./body-class";
+<!DOCTYPE html>
+<html lang="en" class="no-js">
 
-export const metadata: Metadata = {
-  title: "Creative systems that convert",
-  description:
-    "Content is Fun, smart web systems, and marketing support that turn perception into profit. Browse our catalog and get started with Nifty today.",
-  alternates: {
-    canonical: "https://getnifty.xyz/get-started.html",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://getnifty.xyz/get-started.html",
-    title: "Creative systems that convert",
-    description:
-      "Content is Fun, smart web systems, and marketing support that turn perception into profit. Browse our catalog and get started with Nifty today.",
-    images: [
-      {
-        url: "https://getnifty.xyz/assets/images/og-image.png",
-      },
-    ],
-    siteName: "Get Nifty",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Creative systems that convert",
-    description:
-      "Content is Fun, smart web systems, and marketing support that turn perception into profit. Browse our catalog and get started with Nifty today.",
-    images: ["https://getnifty.xyz/assets/images/og-image.png"],
-  },
-};
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creative systems that convert</title>
+    <meta name="description"
+        content="Content is Fun, smart web systems, and marketing support that turn perception into profit. Browse our catalog and get started with Nifty today." />
 
-export default function GetStartedPage() {
-  return (
-    <>
-      <BodyClass className="iframe-page" />
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `<header class="landing-header">
+    <link rel="canonical" href="https://getnifty.xyz/get-started.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://getnifty.xyz/get-started.html" />
+    <meta property="og:title" content="Creative systems that convert" />
+    <meta property="og:description"
+        content="Content is Fun, smart web systems, and marketing support that turn perception into profit. Browse our catalog and get started with Nifty today." />
+    <meta property="og:image" content="https://getnifty.xyz/assets/images/og-image.png" />
+    <meta property="og:site_name" content="Get Nifty" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://getnifty.xyz/get-started.html" />
+    <meta name="twitter:title" content="Creative systems that convert" />
+    <meta name="twitter:description"
+        content="Content is Fun, smart web systems, and marketing support that turn perception into profit. Browse our catalog and get started with Nifty today." />
+    <meta name="twitter:image" content="https://getnifty.xyz/assets/images/og-image.png" />
+
+    <link rel="icon" href="icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="iframe-page">
+    <header class="landing-header">
         <a href="/" class="logo" aria-label="Get Nifty Home">
             <span class="logo-mark" aria-hidden="true"></span>
             <span class="logo-text">Get Nifty</span>
@@ -60,7 +56,11 @@ export default function GetStartedPage() {
 
     <main>
         <iframe src="https://production.getnifty.xyz/catalog" title="Nifty Catalog" loading="lazy"></iframe>
-    </main><!-- WhatsApp Chat Widget -->
+    </main>
+
+    <script src="script.js"></script>
+
+    <!-- WhatsApp Chat Widget -->
     <div class="whatsapp-widget" id="whatsapp-widget">
         <a class="whatsapp-bubble" id="whatsapp-bubble" href="https://wa.me/17874685579" target="_blank">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
@@ -78,10 +78,7 @@ export default function GetStartedPage() {
             </a>
         </div>
     </div>
-    <!-- End WhatsApp Chat Widget -->`,
-        }}
-      />
-      <Script src="/script.js" strategy="afterInteractive" />
-    </>
-  );
-}
+    <!-- End WhatsApp Chat Widget -->
+</body>
+
+</html>

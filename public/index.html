@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative systems that convert | Get Nifty</title>
+  <meta name="description"
+    content="Generative Content, smart web systems, and marketing support that turn perception into profit." />
+
+  <link rel="canonical" href="https://getnifty.xyz/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://getnifty.xyz/" />
+  <meta property="og:title" content="Creative systems that convert" />
+  <meta property="og:description"
+    content="Generative Content, smart web systems, and marketing support that turn perception into profit." />
+  <meta property="og:image" content="https://getnifty.xyz/og-image.png" />
+  <meta property="og:site_name" content="Get Nifty" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://getnifty.xyz/" />
+  <meta name="twitter:title" content="Creative systems that convert" />
+  <meta name="twitter:description"
+    content="Generative Content, smart web systems, and marketing support that turn perception into profit." />
+  <meta name="twitter:image" content="https://getnifty.xyz/og-image.png" />
+
+  <link rel="icon" href="icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Portfolio Carousel Styles */
+    .portfolio-section {
+      padding: 80px 0 40px;
+      background: var(--bg);
+      overflow: visible;
+    }
+
+    .portfolio-container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .what-we-do {
+      max-width: var(--max);
+      margin: 80px auto 80px;
+      /* Increased bottom margin */
+      padding: 0 18px;
+    }
+
+    @media (min-width: 1024px) {
+      .what-we-do {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        text-align: left;
+      }
+
+      .what-we-do .section-title,
+      .what-we-do .section-description {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .portfolio-carousel-wrapper {
+      position: relative;
+      margin-top: 24px;
+      overflow: hidden;
+      /* Prevent horizontal scroll/zoom issues */
+      width: 100%;
+      /* Vertical only mask: Keeps top/bottom shadows smooth */
+      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    }
+
+    /* Alignment for carousel to bleed only track right */
+    .portfolio-carousel {
+      padding-left: 0;
+    }
+
+    .portfolio-carousel {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      padding: 140px 0;
+      /* Remove CSS transition to allow GSAP to handle movement exclusively without conflict */
+      cursor: none;
+      /* Hide cursor for custom follower */
+    }
+
+    .portfolio-item {
+      flex: 0 0 100%;
+      /* Mobile: 1 item */
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      /* Use JS for transitions when playing to ensure perfect centering logic sync */
+      aspect-ratio: 1 / 1;
+      will-change: aspect-ratio, transform;
+    }
+
+    @media (min-width: 640px) {
+      .portfolio-item {
+        flex: 0 0 calc(50% - 10px);
+        /* Tablet: 2 items */
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .portfolio-item {
+        flex: 0 0 calc(25% - 15px);
+        /* Desktop: 4 items */
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .portfolio-item {
+        flex: 0 0 calc(20% - 16px);
+        /* Large Desktop: 5 items */
+      }
+    }
+
+    .portfolio-item:hover {
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+    }
+
+    .portfolio-item.playing {
+      z-index: 10;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8);
+      border: 2px solid var(--green);
+      flex: 0 0 auto;
+      max-height: 500px;
+      max-width: 85vw;
+      background: #000;
+    }
+
+    @media (max-width: 768px) {
+      .landing {
+        padding: 28px 18px 80px !important;
+      }
+
+      .portfolio-section {
+        padding: 40px 0 20px;
+      }
+
+      .what-we-do {
+        margin: 40px auto 60px;
+        /* More room after Brandhub */
+      }
+
+      .portfolio-carousel-wrapper {
+        margin-top: -30px;
+        /* Tighter gap for mobile */
+        margin-left: -18px;
+        margin-right: -18px;
+        width: calc(100% + 36px);
+      }
+
+      .portfolio-carousel {
+        padding: 80px 20px 30px;
+        gap: 20px;
+      }
+
+      .carousel-nav {
+        margin-top: 10px !important;
+        margin-bottom: 60px;
+      }
+
+      .nav-btn {
+        width: 50px;
+        height: 50px;
+      }
+
+      .portfolio-item.playing {
+        max-height: 65vh;
+        max-width: 85vw;
+        border-width: 1.5px;
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    .portfolio-video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: object-fit 0.3s ease;
+    }
+
+    .portfolio-item.playing .portfolio-video {
+      object-fit: contain;
+    }
+
+    /* Cursor Follower (Play Button) */
+    .cursor-follower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0);
+      z-index: 9999;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(22, 255, 154, 0.4);
+    }
+
+    .cursor-follower.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .cursor-follower svg {
+      width: 32px;
+      height: 32px;
+      fill: #000;
+      margin-left: 4px;
+    }
+
+    .cursor-follower .pause-icon {
+      display: none;
+      margin-left: 0;
+    }
+
+    .cursor-follower.playing .play-icon {
+      display: none;
+    }
+
+    .cursor-follower.playing .pause-icon {
+      display: block;
+    }
+
+    /* Brand Hub Demo */
+    .brand-hub-preview {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--bg-2);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      aspect-ratio: 16/9;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+      cursor: none;
+      /* Hide for custom follower */
+    }
+
+    .brand-hub-preview:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+    }
+
+    .brand-hub-preview video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 1023px) {
+      .brand-hub-preview {
+        margin-top: 40px;
+      }
+    }
+
+    /* Testimonials Stack */
+    .testimonials {
+      padding: 80px 0 20px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .testimonials-container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+      text-align: center;
+    }
+
+    .card-stack {
+      position: relative;
+      height: 480px;
+      margin: 60px auto 0;
+      max-width: 550px;
+      perspective: 1000px;
+    }
+
+    .stack-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--panel);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(24px, 4vw, 40px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      will-change: transform, opacity;
+      transform-origin: center bottom;
+      text-align: left;
+    }
+
+    .stack-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .stack-star-icon {
+      width: 18px;
+      height: 18px;
+      fill: var(--green);
+    }
+
+    .stack-quote {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 30px;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .quote-mark {
+      color: var(--green);
+      font-weight: 800;
+      font-size: 1.6rem;
+      margin: 0 4px;
+      opacity: 0.8;
+    }
+
+    .stack-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    .stack-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--bg-2);
+      border: 2px solid var(--green);
+      object-fit: cover;
+    }
+
+    .stack-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stack-name {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+
+    .stack-role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .video-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      background: rgba(22, 255, 154, 0.7);
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .video-indicator svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+      margin-left: 4px;
+    }
+
+    .brand-hub-preview:hover .video-indicator,
+    .brand-hub-preview.playing .video-indicator {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    /* Carousel Nav */
+    .carousel-nav {
+      display: flex;
+      gap: 15px;
+      margin-top: -80px;
+      /* Pull nav up closer to the carousel */
+      justify-content: center;
+      /* Center for consistency with dist */
+      position: relative;
+      z-index: 20;
+    }
+
+    .nav-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      background: var(--bg-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-btn:hover {
+      background: var(--green);
+      border-color: var(--green);
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .portfolio-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 3;
+    }
+
+    .portfolio-item:hover .portfolio-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .portfolio-info h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .portfolio-info span {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      display: block;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#get-nifty">Skip to Get Nifty</a>
+
+  <!-- Play Button Follower -->
+  <div id="play-follower" class="cursor-follower">
+    <svg class="play-icon" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z" />
+    </svg>
+    <svg class="pause-icon" viewBox="0 0 24 24">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+    </svg>
+  </div>
+
+  <!-- SECTION 1: HERO VIDEO -->
+  <section class="hero-scrub" aria-label="Hero video">
+    <div class="hero-sticky">
+      <video class="hero-video" preload="auto" muted playsinline webkit-playsinline
+        poster="assets/images/posters/hero.jpg">
+        <source media="(max-width: 768px)" src="assets/videos/hero_mobile.mp4" type="video/mp4" />
+        <source src="assets/videos/hero.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="hero-overlay">
+        <div class="hero-text-sequence">
+          <h1 class="hero-brand">Get Nifty</h1>
+          <div class="scroll-indicator" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+          </div>
+          <h2 class="hero-title-line-1">If you are not proud of your brand</h2>
+          <h2 class="hero-title-line-2">They will not desire it</h2>
+          <h2 class="hero-title-line-3">Turn perception into profit</h2>
+          <h2 class="hero-title-line-4">Time to level up</h2>
+        </div>
+      </div>
+
+      <div class="hero-gradient" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: GET NIFTY LANDING -->
+  <main id="get-nifty" class="landing">
+    <header class="landing-header">
+      <a href="/" class="logo" aria-label="Get Nifty Home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">Get Nifty</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="menu-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="#portfolio">Our Work</a>
+        <a href="#what-we-do">What We Do</a>
+        <a href="#how">How It Works</a>
+        <a href="get-started.html">Get started</a>
+      </nav>
+    </header>
+
+
+
+    <section id="what-we-do" class="what-we-do">
+      <div class="what-we-do-text">
+        <h2 class="section-title" style="margin-bottom: 24px;">What We Do</h2>
+        <p class="section-description">We build the systems that define your brand online. A <strong>Brand
+            Showroom</strong> to organize your assets, a <strong>Landing Page</strong> to tell your story, and
+          <strong>Generative Content</strong> to keep you relevant. Available as a full system or individual services.
+        </p>
+        <div class="cta-row" style="margin-top: 24px;">
+          <a class="btn btn-primary" href="get-started.html">Bring My Brand to Life</a>
+          <a class="btn btn-ghost" href="https://wa.me/17874685579" target="_blank">Contact Us</a>
+        </div>
+      </div>
+      <div class="brand-hub-preview">
+        <video src="assets/videos/portfolio/Brandhub.mp4" loop playsinline
+          poster="assets/images/posters/Brandhub.jpg"></video>
+        <div class="video-indicator">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="portfolio-section">
+      <div class="portfolio-container">
+        <h2 class="section-title">Generative Content</h2>
+        <p class="section-description">Graphics and video content built to grab and hold attention.
+        </p>
+
+      </div> <!-- End Container -->
+
+      <div class="portfolio-carousel-wrapper">
+        <div class="portfolio-carousel">
+          <!-- Video 1 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-1.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-1.jpg"></video>
+          </article>
+          <!-- Video 2 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-2.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-2.jpg"></video>
+          </article>
+          <!-- Video 3 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-3.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-3.jpg"></video>
+          </article>
+          <!-- Video 4 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-4.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-4.jpg"></video>
+          </article>
+          <!-- Video 5 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-5.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-5.jpg"></video>
+          </article>
+          <!-- Video 6 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-6.mp4" muted loop playsinline
+              preload="metadata"></video>
+          </article>
+          <!-- Video 7 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-7.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-7.jpg"></video>
+          </article>
+          <!-- Video 8 -->
+          <article class="portfolio-item">
+            <video class="portfolio-video" src="assets/videos/portfolio/portfolio-8.mp4" muted loop playsinline
+              preload="metadata" poster="assets/images/posters/portfolio-8.jpg"></video>
+          </article>
+        </div>
+      </div>
+
+      <div class="portfolio-container">
+        <div class="carousel-nav">
+          <button class="nav-btn prev" aria-label="Previous">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button class="nav-btn next" aria-label="Next">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="services">
+      <h2 class="section-title">Core Services</h2>
+      <div class="services-grid">
+        <article class="service">
+          <h3>The Brand Showroom</h3>
+          <p class="service-tagline">No more "where is that logo?" emails. A live, digital home for your brand
+            guidelines.</p>
+          <ul class="service-list">
+            <li><strong>Centralized Hub:</strong> Logos, fonts, and hex codes in one link.</li>
+            <li><strong>AI-Ready:</strong> Context agents can read to stay on-brand.</li>
+            <li><strong>Live Updates:</strong> Never send an "outdated PDF" again.</li>
+          </ul>
+        </article>
+        <article class="service">
+          <h3>Immersive Landing Pages</h3>
+          <p class="service-tagline">First impressions are everything. We design sites that feel premium and tell a
+            story.</p>
+          <ul class="service-list">
+            <li>Interactive storytelling</li>
+            <li>On brand aesthetics</li>
+            <li>Conversion-optimized layout</li>
+          </ul>
+        </article>
+        <article class="service">
+          <h3>Motion & Graphics</h3>
+          <p class="service-tagline">Feed the content machine with assets that actually match your brand.</p>
+          <ul class="service-list">
+            <li>Motion graphics</li>
+            <li>Social video assets</li>
+            <li>On-brand marketing materials</li>
+          </ul>
+        </article>
+        <article class="service">
+          <h3>Custom Workflows</h3>
+          <p class="service-tagline">Systems that help your team create faster.</p>
+          <ul class="service-list">
+            <li>Asset management systems</li>
+            <li>Template creation</li>
+            <li>Marketing tool integration</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="how">
+      <h2 class="section-title">How It Works</h2>
+      <ol class="process-steps">
+        <li>
+          <h3>Discover</h3>
+          <p>We get clear on audience, offer, and desired perception.</p>
+        </li>
+        <li>
+          <h3>Design the Story</h3>
+          <p>Map the narrative into motion.</p>
+        </li>
+        <li>
+          <h3>Build It</h3>
+          <p>Website experience plus social content.</p>
+        </li>
+        <li>
+          <h3>Launch and Evolve</h3>
+          <p>Track what works and scale the wins.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="why" class="why">
+      <h2 class="section-title">Why It Matters</h2>
+      <p class="section-description">When your website, social content, and internal assets all tell the same story, you
+        build unstoppable momentum. We replace scattered files and disconnected visuals with a single, premium creative
+        system.</p>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="testimonials">
+      <div class="testimonials-container">
+        <h2 class="section-title">Kind Words</h2>
+        <p class="section-description">What our clients say about the Nifty experience.</p>
+        <div id="card-stack" class="card-stack"></div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+
+
+    <section id="final-cta" class="final-cta">
+      <h2 class="cta-title">Get started</h2>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="get-started.html">Bring It to Life</a>
+        <a class="btn btn-ghost" href="https://wa.me/17874685579" target="_blank">Contact Us</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><span class="logo-text">Get Nifty</span> &copy; 2026 All rights reserved</p>
+      <a class="to-top" href="#">Back to top</a>
+    </footer>
+  </main>
+
+  <div class="cursor-spotlight" aria-hidden="true"></div>
+
+  <!-- Include GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="testimonials.js" defer></script>
+
+  <!-- WhatsApp Chat Widget -->
+  <div class="whatsapp-widget" id="whatsapp-widget">
+    <a class="whatsapp-bubble" id="whatsapp-bubble" href="https://wa.me/17874685579" target="_blank">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+    </a>
+    <div class="whatsapp-popup" id="whatsapp-popup">
+      <div class="whatsapp-popup-close" id="whatsapp-close">×</div>
+      <a href="https://wa.me/17874685579" target="_blank" class="whatsapp-message">
+        <span class="wave-emoji">👋</span> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

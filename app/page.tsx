@@ -95,7 +95,7 @@ export default function HomePage() {
         <a href="#portfolio">Our Work</a>
         <a href="#what-we-do">What We Do</a>
         <a href="#how">How It Works</a>
-        <a href="/get-started">Get started</a>
+        <a href="get-started.html">Get started</a>
       </nav>
     </header>
 
@@ -109,12 +109,12 @@ export default function HomePage() {
           <strong>Generative Content</strong> to keep you relevant. Available as a full system or individual services.
         </p>
         <div class="cta-row" style="margin-top: 24px;">
-          <a class="btn btn-primary" href="/get-started">Bring My Brand to Life</a>
+          <a class="btn btn-primary" href="get-started.html">Bring My Brand to Life</a>
           <a class="btn btn-ghost" href="https://wa.me/17874685579" target="_blank">Contact Us</a>
         </div>
       </div>
       <div class="brand-hub-preview">
-        <video src="assets/videos/portfolio/Brandhub.mp4" loop playsinline
+        <video src="assets/videos/portfolio/brandhub.mp4" loop playsinline
           poster="assets/images/posters/Brandhub.jpg"></video>
         <div class="video-indicator">
           <svg viewBox="0 0 24 24">
@@ -201,35 +201,51 @@ export default function HomePage() {
 
 
     <section class="services">
-      <div class="services-header">
-        <h2 class="section-title">Complete Brand System</h2>
-        <p class="section-description">Content, web, and marketing systems built to keep you relevant.</p>
-      </div>
-
+      <h2 class="section-title">Core Services</h2>
       <div class="services-grid">
-        <div class="service-card">
-          <div class="service-title">Brand Showroom</div>
-          <p class="service-desc">A central hub for your brand assets, messaging, and guidelines. Share it internally or
-            with partners.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-title">Landing Page</div>
-          <p class="service-desc">A high-converting page that tells your story and captures leads.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-title">Generative Content</div>
-          <p class="service-desc">Social content and visuals that keep your brand top of mind.</p>
-        </div>
+        <article class="service">
+          <h3>The Brand Showroom</h3>
+          <p class="service-tagline">No more "where is that logo?" emails. A live, digital home for your brand
+            guidelines.</p>
+          <ul class="service-list">
+            <li><strong>Centralized Hub:</strong> Logos, fonts, and hex codes in one link.</li>
+            <li><strong>AI-Ready:</strong> Context agents can read to stay on-brand.</li>
+            <li><strong>Live Updates:</strong> Never send an "outdated PDF" again.</li>
+          </ul>
+        </article>
+        <article class="service">
+          <h3>Immersive Landing Pages</h3>
+          <p class="service-tagline">First impressions are everything. We design sites that feel premium and tell a
+            story.</p>
+          <ul class="service-list">
+            <li>Interactive storytelling</li>
+            <li>On brand aesthetics</li>
+            <li>Conversion-optimized layout</li>
+          </ul>
+        </article>
+        <article class="service">
+          <h3>Motion & Graphics</h3>
+          <p class="service-tagline">Feed the content machine with assets that actually match your brand.</p>
+          <ul class="service-list">
+            <li>Motion graphics</li>
+            <li>Social video assets</li>
+            <li>On-brand marketing materials</li>
+          </ul>
+        </article>
+        <article class="service">
+          <h3>Custom Workflows</h3>
+          <p class="service-tagline">Systems that help your team create faster.</p>
+          <ul class="service-list">
+            <li>Asset management systems</li>
+            <li>Template creation</li>
+            <li>Marketing tool integration</li>
+          </ul>
+        </article>
       </div>
     </section>
 
-
-    <!-- HOW IT WORKS SECTION -->
-    <section id="how" class="process">
-      <div class="process-header">
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-description">We match your offer to a story your audience will remember.</p>
-      </div>
+    <section id="how" class="how">
+      <h2 class="section-title">How It Works</h2>
       <ol class="process-steps">
         <li>
           <h3>Discover</h3>
@@ -272,7 +288,7 @@ export default function HomePage() {
     <section id="final-cta" class="final-cta">
       <h2 class="cta-title">Get started</h2>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/get-started">Bring It to Life</a>
+        <a class="btn btn-primary" href="get-started.html">Bring It to Life</a>
         <a class="btn btn-ghost" href="https://wa.me/17874685579" target="_blank">Contact Us</a>
       </div>
     </section>
