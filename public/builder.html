@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Nifty — Visual Builder</title>
+    <meta
+      name="description"
+      content="Visual builder for index.html (edit copy/colors/scrub length and export)."
+    />
+    <link rel="stylesheet" href="./builder.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"></span>
+        <div class="brand-text">
+          <div class="name">Get Nifty</div>
+          <div class="sub">Visual Builder</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="btn-reset" type="button">Reset</button>
+        <button class="btn btn-primary" id="btn-download" type="button">
+          Download index.html
+        </button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="panel" aria-label="Builder controls">
+        <section class="group">
+          <h2>Hero (Section 1)</h2>
+          <label>
+            <span>Badge</span>
+            <input id="hero-badge" type="text" value="GREEN MODE" />
+          </label>
+          <label>
+            <span>Title</span>
+            <input
+              id="hero-title"
+              type="text"
+              value="Scroll. Scrub. Get Nifty."
+            />
+          </label>
+          <label>
+            <span>Subtitle</span>
+            <textarea id="hero-subtitle" rows="3">Your hero video, but interactive — tied to the scroll like a timeline.</textarea>
+          </label>
+          <label>
+            <span>Scrub runway (vh)</span>
+            <input id="scrub-vh" type="range" min="180" max="600" step="10" value="320" />
+            <div class="hint-row">
+              <span class="hint" id="scrub-vh-label">320vh</span>
+              <span class="muted">More = slower scrub</span>
+            </div>
+          </label>
+        </section>
+
+        <section class="group">
+          <h2>Landing (Section 2)</h2>
+          <label>
+            <span>Headline</span>
+            <input
+              id="landing-title"
+              type="text"
+              value="A landing page that feels alive."
+            />
+          </label>
+          <label>
+            <span>Paragraph</span>
+            <textarea id="landing-lede" rows="4">Scroll-driven video hero in section 1, then your full “Get Nifty” pitch in section 2 — all with a crisp green theme.</textarea>
+          </label>
+          <div class="two-col">
+            <label>
+              <span>Primary button</span>
+              <input id="btn-primary-text" type="text" value="Explore features" />
+            </label>
+            <label>
+              <span>Primary link</span>
+              <input id="btn-primary-href" type="text" value="#features" />
+            </label>
+          </div>
+          <div class="two-col">
+            <label>
+              <span>Secondary button</span>
+              <input id="btn-ghost-text" type="text" value="See how it works" />
+            </label>
+            <label>
+              <span>Secondary link</span>
+              <input id="btn-ghost-href" type="text" value="#how" />
+            </label>
+          </div>
+        </section>
+
+        <section class="group">
+          <h2>Theme</h2>
+          <div class="two-col">
+            <label>
+              <span>Accent green</span>
+              <input id="color-green" type="color" value="#16ff9a" />
+            </label>
+            <label>
+              <span>Green 2</span>
+              <input id="color-green-2" type="color" value="#00d084" />
+            </label>
+          </div>
+          <p class="muted small">
+            Exports as inline CSS variables on <code>&lt;html style="..."&gt;</code>.
+          </p>
+        </section>
+
+        <section class="group">
+          <h2>Notes</h2>
+          <p class="muted small">
+            If preview/export doesn’t work when double-clicking files, run a local server
+            (see README) so the iframe can access <code>index.html</code>.
+          </p>
+        </section>
+      </aside>
+
+      <section class="preview" aria-label="Live preview">
+        <iframe
+          id="preview-frame"
+          title="index.html preview"
+          src="./index.html"
+          loading="eager"
+        ></iframe>
+      </section>
+    </main>
+
+    <script src="./builder.js" defer></script>
+  </body>
+</html>
+
+
